@@ -1,0 +1,49 @@
+openapi: 3.0.3
+info:
+  title: CodeSentinel Synthetic API
+  version: 1.0.0
+paths:
+  /public:
+    get:
+      summary: Intentionally public endpoint
+      security: []
+      responses:
+        '200': {description: Public response}
+  /protected:
+    get:
+      summary: Protected endpoint
+      responses:
+        '200': {description: Protected response}
+        '401': {description: Unauthorized}
+  /unprotected:
+    get:
+      summary: Synthetic unprotected endpoint
+      responses:
+        '200': {description: Public response}
+  /cors:
+    get:
+      summary: Synthetic permissive CORS endpoint
+      responses:
+        '200': {description: CORS response}
+  /error:
+    get:
+      summary: Synthetic diagnostic response
+      responses:
+        '500': {description: Synthetic error}
+  /requires-input/{item_id}:
+    get:
+      summary: Fixture endpoint requiring path input
+      parameters:
+        - name: item_id
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        '200': {description: Synthetic resource}
+security:
+  - BearerAuth: []
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
